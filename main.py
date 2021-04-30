@@ -21,7 +21,7 @@ async def on_ready():
 # Ping command 
 @bot.command()
 async def ping(ctx):
-    await ctx.send(f"Bot ping is {round(client.latency * 1000})ms")
+    await ctx.send(f"Bot ping is {round(client.latency * 1000)}ms")
 
 # github command 
 @bot.command()
