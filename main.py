@@ -1,48 +1,86 @@
-# Don't even dare to sell this, I dont care you can claim it that you made it, but if you dare to sell it ill slice your throat really slowly and painfully <3
-# I'm not gonna update this ever unless it's minor bug or something similar, so yeah...
+# Imports
+import discord 
+import json
+from discord.ext import commands
 
-# Import 
-import discord
-from discord.ext import commands 
 
-# Prefix 
-bot = commands.Bot(command_prefix=">>")
+# Prefix
+def get_prefix(client, message):
+    with open("prefixes.json", "r") as f:
+        prefixes = json.load(f)
+
+    return prefixes[str(message.guild.id)]
+
+client = commands.Bot(command_prefix = get_prefix)
+
+@client.event 
+async def on_guild_join(guild):
+	with open("prefixes.json", "r") as f:
+		prefixes = json.load(f)
+
+	prefixes[str(guild.id)] = ">>"
+
+	with open("prefixes.json", "w") as f:
+		json.dump(prefixes, f, indent = 4)
+
+@client.event 
+async def on_guild_remove(guild):
+	with open("prefixes.json", "r") as f:
+		prefixes = json.load(f)
+
+	prefixes.pop(str(guild.id))
+
+	with open("prefixes.json", "w") as f:
+		json.dump(prefixes, f, indent = 4)
+
+
+# Prefix Command 
+@client.command()
+async def prefix(ctx, prefix):
+	with open("prefixes.json", "r") as f:
+		prefixes = json.load(f)
+
+	prefixes[str(guild.id)] = prefix
+
+	with open("prefixes.json", "w") as f:
+		json.dump(prefixes, f, indent = 4)
+		
 
 # Bot Online print
-@bot.event
+@client.event
 async def on_ready():
     print("Bot is online!")
 
+
 # Bot status 
-@bot.event
+@client.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name="status"))
+    await client.change_presence(activity=discord.Game(name="status"))
+
 
 # Ping command 
-@bot.command()
+@client.command()
 async def ping(ctx):
     await ctx.send(f"Bot ping is {round(client.latency * 1000)}ms")
 
-# github command 
-@bot.command()
-async def github(ctx):
-    await ctx.send("Github: https://github.com/fastsucksatcoding")
 
 # ban command 
-@bot.command()
+@client.command()
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
+
 # Kick command 
-@bot.command()
+@client.command()
 async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
 
+
 # Clear command 
-@bot.command()
+@client.command()
 async def clear(ctx, amount=10):
     await ctx.channel.purge(limit=amount)
 
-# Token 
-bot.run("token")
 
+# Token
+client.run("Token")
