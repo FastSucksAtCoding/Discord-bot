@@ -70,6 +70,7 @@ async def ping(ctx):
 @commands.has_permissions(Ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
+await ctx.send("User has been banned")
 
 
 # Kick command 
@@ -77,6 +78,7 @@ async def ban(ctx, member : discord.Member, *, reason=None):
 @commands.has_permissions(Kick_members=True)
 async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
+await ctx.send("User has been kicked")
 
 
 # Clear command 
