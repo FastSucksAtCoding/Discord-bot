@@ -36,6 +36,7 @@ async def on_guild_remove(guild):
 
 # Prefix Command 
 @client.command()
+@commands.has_permissions(administrator=True)
 async def prefix(ctx, prefix):
 	with open("prefixes.json", "r") as f:
 		prefixes = json.load(f)
@@ -66,18 +67,21 @@ async def ping(ctx):
 
 # ban command 
 @client.command()
+@commands.has_permissions(Ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
 
 # Kick command 
 @client.command()
+@commands.has_permissions(Kick_members=True)
 async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
 
 
 # Clear command 
 @client.command()
+@commands.has_permissions(Manage_messages=True)
 async def clear(ctx, amount=10):
     await ctx.channel.purge(limit=amount)
 
