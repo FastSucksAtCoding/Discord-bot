@@ -87,6 +87,11 @@ await ctx.send("User has been kicked")
 async def clear(ctx, amount=10):
     await ctx.channel.purge(limit=amount)
 
+# Info Command 
+@client.command()
+async def info(ctx):
+	await ctx.send("Bot Version: 1.0")
+
 
 # Token
 client.run("Token")
