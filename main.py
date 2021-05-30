@@ -67,30 +67,40 @@ async def ping(ctx):
 
 # ban command 
 @client.command()
-@commands.has_permissions(Ban_members=True)
+@commands.has_permissions(ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
-await ctx.send("User has been banned")
 
 
 # Kick command 
 @client.command()
-@commands.has_permissions(Kick_members=True)
+@commands.has_permissions(kick_members=True)
 async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
-await ctx.send("User has been kicked")
 
 
 # Clear command 
 @client.command()
-@commands.has_permissions(Manage_messages=True)
+@commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount=10):
     await ctx.channel.purge(limit=amount)
 
 # Info Command 
 @client.command()
 async def info(ctx):
-	await ctx.send("Bot Version: 1.0")
+	await ctx.send("Bot Version: 1.1")
+
+# Help Command 
+client.remove_command("help")
+@client.command()
+async def help(ctx):
+    await ctx.send("**Help**\n"
+    "Prefix - Changes prefix\n"
+    "Ban - bans user from guild\n"
+    "Kick - kicks user from guild\n"
+    "Clear - clears messages\n"
+    "Ping - shows bot ping\n"
+    "Info - Shows bot information\n")
 
 
 # Token
