@@ -85,10 +85,14 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 async def clear(ctx, amount=10):
     await ctx.channel.purge(limit=amount)
 
+
 # Info Command 
 @client.command()
 async def info(ctx):
-	await ctx.send("Bot Version: 1.1")
+	await ctx.send("**Info**\n"
+    "Version: 1.2\n"
+    "Source code: https://github.com/fastsucksatcoding/discord-bot")
+
 
 # Help Command 
 client.remove_command("help")
@@ -101,6 +105,12 @@ async def help(ctx):
     "Clear - clears messages\n"
     "Ping - shows bot ping\n"
     "Info - Shows bot information\n")
+
+
+# Version command 
+@client.command()
+async def version(ctx):
+    await ctx.send("Bot version: 1.2")
 
 
 # Token
